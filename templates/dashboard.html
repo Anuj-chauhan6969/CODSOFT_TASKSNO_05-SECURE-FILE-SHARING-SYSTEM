@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+<h1>Secure File Dashboard</h1>
+
+<p>
+    Logged in as:
+    <strong>{{ session.username }}</strong>
+</p>
+
+<p>
+    Role:
+    <strong>{{ session.role }}</strong>
+</p>
+
+<a href="/upload">
+    Upload File
+</a>
+
+<br><br>
+
+<a href="/logout">
+    Logout
+</a>
+
+<hr>
+
+<h2>Your Files</h2>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>File</th>
+    <th>Owner</th>
+    <th>Uploaded</th>
+    <th>Download</th>
+    <th>Temporary Link</th>
+</tr>
+
+{% for file in files %}
+
+<tr>
+
+<td>
+    {{ file.original_name }}
+</td>
+
+<td>
+    {{ file.username if file.username else session.username }}
+</td>
+
+<td>
+    {{ file.uploaded_at }}
+</td>
+
+<td>
+
+<a href="/download/{{ file.id }}">
+    Download
+</a>
+
+</td>
+
+<td>
+
+<form
+    method="POST"
+    action="/share/{{ file.id }}"
+>
+
+<button type="submit">
+    Generate 10-Min Link
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+
+</html>
