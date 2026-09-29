@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+
+.venv/
+venv/
+
+.env
+
+secret.key
+
+secure_files.db
+
+storage/encrypted/*
